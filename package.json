@@ -1,0 +1,31 @@
+{
+  "name": "y-note",
+  "version": "1.0.0",
+  "description": "my technology note under yuque",
+  "main": "index.js",
+  "private": true,
+  "author": "Nooldey",
+  "license": "ISC",
+  "keywords": [
+    "yuque",
+    "sync",
+    "hexo"
+  ],
+  "scripts": {
+    "sync": "yuque-hexo sync",
+    "clean:yuque": "yuque-hexo clean",
+    "deploy": "npm run sync && hexo clean && hexo g -d"
+  },
+  "yuqueConfig": {
+    "adapter": "hexo",
+    "baseUrl": "https://www.yuque.com/api/v2",
+    "concurrency": 5,
+    "login": "nooldey",
+    "mdNameFormat": "title",
+    "postPath": "source/_posts/gists",
+    "repo": "gists"
+  },
+  "devDependencies": {
+    "yuque-hexo": "^1.4.2"
+  }
+}
