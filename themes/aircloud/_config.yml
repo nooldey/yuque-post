@@ -1,0 +1,63 @@
+#Custom Setting Start
+
+# Site settings
+# 网站综合内容设置：
+SEOTitle: 一堆BUG
+email: Nooldey@gmail.com
+description: 一堆BUG
+keyword: 一堆BUG
+
+# SNS settings
+# 一些社交平台地址，支持以下几种：
+weibo_username:     nooldey
+# zhihu_username:     nooldey
+github_username:    nooldey
+# twitter_username:   nooldey
+# facebook_username:  nooldey
+# linkedin_username:  nooldey
+
+# Build settings
+anchorjs: true                          # if you want to customize anchor. check out line:181 of `post.html`
+
+sidebar-avatar: https://zhuweisheng.com.cn/bookmarks/avatar.png
+# use absolute URL, seeing it's used in both `/` and `/about/`
+
+# Friends
+# 友情链接
+friends: [
+  {
+    title: 'Yuque',
+    href: 'https://www.yuque.com/nooldey/gists'
+  },
+  {
+      title: "It helps SEO",
+      href: "#"
+  }
+]
+
+#comment:
+#  type: gitment
+#  id: your-id-created-by-https://github.com/settings/applications/new
+#  secret: your-secret-created-by-https://github.com/settings/applications/new
+#  owner: aircloud
+#  repo: hexo-aircloud-blog
+
+comment:
+   type: disqus
+   script: 'https://airclouds-blog.disqus.com/embed.js'
+
+donate:
+  img: https://cdn.nlark.com/yuque/0/2019/jpeg/anonymous/1552106902668-b9acf677-734e-4e7a-ac1f-681a58e57f9d.jpeg?x-oss-process=image/resize,m_fill,w_192,h_192/format,png
+  content: 感谢鼓励
+  
+# The following content is not recommended to modify
+# 搜索数据文件路径设置，不建议改动：
+search:
+  path: search.json
+  field: post
+
+# 文章样式(是否首行缩进)：
+post_style:
+  indent: default
+
+# Custom Setting End
