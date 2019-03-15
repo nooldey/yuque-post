@@ -5,5 +5,6 @@ db.json
 node_modules/
 public/
 .idea/
-.vscode/
 .deploy*/
+unuse/
+readme-private.md

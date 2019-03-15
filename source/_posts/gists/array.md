@@ -31,7 +31,7 @@ const compareArr = (a,b) => {
 Es6 快速去重
 */
 function removeDupli(array){
-	return [...new Set(array)]
+	return Array.from(new Set(array))
 }
 ```
 
