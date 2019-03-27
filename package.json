@@ -14,6 +14,7 @@
   "scripts": {
     "sync": "yuque-hexo sync",
     "clean:yuque": "yuque-hexo clean",
+    "build": "hexo g",
     "deploy": "npm run sync && hexo clean && hexo g -d"
   },
   "yuqueConfig": {
