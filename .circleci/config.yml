@@ -20,5 +20,7 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
+      - git config --global user.email "deploy@zhuweisheng.com.cn"
+      - git config --global user.name "deployRobot"
       - run: yarn add hexo-cli -g
       - run: yarn deploy
