@@ -16,6 +16,5 @@ jobs:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
-      - run: yarn add hexo-cli -g
-      - run: yarn add hexo -g
-      - run: hexo g
+      - run: npm install hexo-cli -g
+      - run: npx hexo g
