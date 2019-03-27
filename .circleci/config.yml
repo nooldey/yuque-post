@@ -20,5 +20,4 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
       - run: yarn add hexo-cli -g
-      - run: yarn sync
       - run: yarn deploy
