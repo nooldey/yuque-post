@@ -71,7 +71,7 @@ theme: aircloud
 deploy:
   type: git
   repo: https://github.com/nooldey/yuque-post.git
-  branch: pages
+  branch: gh-pages
 
 ##################################################################################
 #Custom Setting Start
