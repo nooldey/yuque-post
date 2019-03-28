@@ -18,14 +18,11 @@ jobs:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
             - v1-dependencies-
-      - run:
-          name: submodules
-          command:
-            git config --global user.email "deploy@zhuweisheng.com.cn"
-            git config --global user.name "deployRobot"
-            git submodule init
-            git submodule update
-            git submodule foreach git pull origin master
+      - run: git config --global user.email "deploy@zhuweisheng.com.cn"
+      - run: git config --global user.name "deployRobot"
+      - run: git submodule init
+      - run: git submodule update
+      - run: git submodule foreach git pull origin master
       - run: yarn
       - save_cache:
           paths:
