@@ -15,7 +15,7 @@
     "sync": "yuque-hexo sync",
     "clean:yuque": "yuque-hexo clean",
     "build": "hexo g",
-    "deploy": "npm run sync && git submodule init && git submodule update && hexo g -d"
+    "deploy": "npm run sync && hexo g -d"
   },
   "yuqueConfig": {
     "adapter": "hexo",
