@@ -95,7 +95,7 @@ github_username:    nooldey
 # Build settings
 anchorjs: true                          # if you want to customize anchor. check out line:181 of `post.html`
 
-sidebar-avatar: images/avatar.png
+sidebar-avatar: /images/avatar.png
 # use absolute URL, seeing it's used in both `/` and `/about/`
 
 # Friends
@@ -122,9 +122,9 @@ comment:
    type: disqus
    script: 'https://airclouds-blog.disqus.com/embed.js'
 
-donate:
-  img: https://cdn.nlark.com/yuque/0/2019/jpeg/anonymous/1552106902668-b9acf677-734e-4e7a-ac1f-681a58e57f9d.jpeg?x-oss-process=image/resize,m_fill,w_192,h_192/format,png
-  content: 感谢鼓励
+# donate:
+#   img: https://cdn.nlark.com/yuque/0/2019/jpeg/anonymous/1552106902668-b9acf677-734e-4e7a-ac1f-681a58e57f9d.jpeg?x-oss-process=image/resize,m_fill,w_192,h_192/format,png
+#   content: 感谢鼓励
   
 # The following content is not recommended to modify
 # 搜索数据文件路径设置，不建议改动：
