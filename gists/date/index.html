@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="google-site-verification" content="xBT4GhYoi5qRD5tr338pgPM5OWHHIDR6mNg1a3euekI">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="一堆BUG">
+    <meta name="keyword" content="一堆BUG">
+    <link rel="shortcut icon" href="/yuque-post/img/favicon.ico">
+
+    <title>
+        
+        日期格式化 - 一堆BUG
+        
+    </title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/yuque-post/css/aircloud.css">
+    <link rel="stylesheet" href="/yuque-post/css/gitment.css">
+    <!--<link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">-->
+    <link href="//at.alicdn.com/t/font_620856_pl6z7sid89qkt9.css" rel="stylesheet" type="text/css">
+    <!-- ga & ba script hoook -->
+    <script></script>
+</head>
+
+<body>
+
+<div class="site-nav-toggle" id="site-nav-toggle">
+    <button>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+        <span class="btn-bar"></span>
+    </button>
+</div>
+
+<div class="index-about">
+    <i> sometimes code， sometimes design </i>
+</div>
+
+<div class="index-container">
+    
+    <div class="index-left">
+        
+<div class="nav" id="nav">
+    <div class="avatar-name">
+        <div class="avatar">
+            <img src="/images/avatar.png">
+        </div>
+        <div class="name">
+            <i>Nooldey zhu</i>
+        </div>
+    </div>
+    <div class="contents" id="nav-content">
+        <ul>
+            <li>
+                <a href="/yuque-post/">
+                    <i class="iconfont icon-shouye1"></i>
+                    <span>主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="/yuque-post/tags">
+                    <i class="iconfont icon-biaoqian1"></i>
+                    <span>标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="/yuque-post/archive">
+                    <i class="iconfont icon-guidang2"></i>
+                    <span>存档</span>
+                </a>
+            </li>
+            <li>
+                <a href="/yuque-post/about/">
+                    <i class="iconfont icon-guanyu2"></i>
+                    <span>关于</span>
+                </a>
+            </li>
+            
+            <li>
+                <a id="search">
+                    <i class="iconfont icon-sousuo1"></i>
+                    <span>搜索</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+    
+        <div id="toc" class="toc-article">
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#时间格式化"><span class="toc-text">时间格式化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#将零时区转化为当地时间"><span class="toc-text">将零时区转化为当地时间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#将当地时间转化为零时区时间"><span class="toc-text">将当地时间转化为零时区时间</span></a></li></ol>
+</div>
+    
+</div>
+
+
+<div class="search-field" id="search-field">
+    <div class="search-container">
+        <div class="search-input">
+            <span id="esc-search"> <i class="icon-fanhui iconfont"></i></span>
+            <input id="search-input">
+            <span id="begin-search">搜索</span>
+        </div>
+        <div class="search-result-container" id="search-result-container">
+
+        </div>
+    </div>
+</div>
+
+        <div class="index-about-mobile">
+            <i> sometimes code， sometimes design </i>
+        </div>
+    </div>
+    
+    <div class="index-middle">
+        <!-- Main Content -->
+        
+
+
+<div class="post-container">
+    <div class="post-title">
+        日期格式化
+    </div>
+
+    <div class="post-meta">
+        <span class="attr">发布于：<span>2019-03-09 05:13:33</span></span>
+        
+        
+        <span class="attr">访问：<span id="busuanzi_value_page_pv"></span>
+</span>
+
+    </div>
+    <div class="post-content ">
+        <p><a name="606aca26"></a></p>
+<h2 id="时间格式化"><a href="#时间格式化" class="headerlink" title="时间格式化"></a>时间格式化</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> timeFormat = <span class="function">(<span class="params">stamp, format=<span class="string">'yyyy-MM-dd'</span></span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">/* 时间格式化 */</span></span><br><span class="line">    <span class="keyword">let</span> d = <span class="keyword">new</span> <span class="built_in">Date</span>(stamp);</span><br><span class="line">    <span class="keyword">let</span> year = d.getFullYear(),</span><br><span class="line">        month = d.getMonth()+<span class="number">1</span>,</span><br><span class="line">        date = d.getDate(),</span><br><span class="line">        hour = d.getHours(),</span><br><span class="line">        min = d.getMinutes(),</span><br><span class="line">        sec = d.getSeconds();</span><br><span class="line">    <span class="keyword">let</span> output = <span class="string">''</span>;</span><br><span class="line">    <span class="keyword">switch</span> (format) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">'yyyy-MM-dd'</span>:</span><br><span class="line">            output = [year,month,date].join(<span class="string">'-'</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            output = [year,month,date].join(<span class="string">'-'</span>)+<span class="string">' '</span>+[hour,min].join(<span class="string">':'</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> output;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a name="a7bfb8a8"></a></p>
+<h2 id="将零时区转化为当地时间"><a href="#将零时区转化为当地时间" class="headerlink" title="将零时区转化为当地时间"></a><strong>将零时区转化为当地时间</strong></h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* 依赖时间格式化函数 */</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> zeroToLocal = <span class="function">(<span class="params">stamp, format=<span class="string">'yyyy-MM-dd'</span></span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">/* 将传入的零时区的时间转化为当地时间显示 */</span></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     * 参数：</span></span><br><span class="line"><span class="comment">     * offset: 当前时区时间差 = 零时区时间-当地时间 单位：min</span></span><br><span class="line"><span class="comment">     *       eg: 中国时区+0800 时间差为-480(min),-480/60 = -8小时</span></span><br><span class="line"><span class="comment">     * localtime: 转换后输出的当地时间</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="keyword">if</span> (!stamp) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">let</span> d = <span class="keyword">new</span> <span class="built_in">Date</span>(stamp);</span><br><span class="line">    <span class="keyword">if</span> (!d) <span class="keyword">return</span> stamp;</span><br><span class="line">    <span class="keyword">let</span> offset = <span class="keyword">new</span> <span class="built_in">Date</span>().getTimezoneOffset();</span><br><span class="line">    <span class="keyword">let</span> localtime = d.getTime() - offset*<span class="number">60</span>*<span class="number">1000</span>;</span><br><span class="line">    <span class="keyword">let</span> output = timeFormat(localtime,format);</span><br><span class="line">    <span class="keyword">return</span> output;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><a name="38c57d19"></a></p>
+<h2 id="将当地时间转化为零时区时间"><a href="#将当地时间转化为零时区时间" class="headerlink" title="将当地时间转化为零时区时间"></a><strong>将当地时间转化为零时区时间</strong></h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> localToZero = <span class="function">(<span class="params">stamp, format=<span class="string">'yyyy-MM-dd'</span></span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="comment">/* 将当地时间转化为零时区时间 */</span></span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">     * 参数：</span></span><br><span class="line"><span class="comment">     * offset: 当前时区时间差 = 零时区时间-当地时间 单位：min</span></span><br><span class="line"><span class="comment">     *       eg: 中国时区+0800 时间差为-480(min),-480/60 = -8小时</span></span><br><span class="line"><span class="comment">     * zeroTime: 转换后输出的当地时间</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">    <span class="keyword">if</span> (!stamp) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">let</span> d = <span class="keyword">new</span> <span class="built_in">Date</span>(stamp).toJSON().substr(<span class="number">0</span>, <span class="number">19</span>);</span><br><span class="line">    <span class="keyword">let</span> [date,time] = d.split(<span class="string">'T'</span>);</span><br><span class="line">    <span class="keyword">let</span> [year,month,day] = date.split(<span class="string">'-'</span>);</span><br><span class="line">    <span class="keyword">let</span> [hour,min,sec] = time.split(<span class="string">':'</span>);</span><br><span class="line">    <span class="keyword">let</span> output = <span class="string">''</span>;</span><br><span class="line">    <span class="keyword">switch</span> (format) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="string">'yyyy-MM-dd'</span>:</span><br><span class="line">            output = [year,month,date].join(<span class="string">'-'</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">default</span>:</span><br><span class="line">            output = [year,month,date].join(<span class="string">'-'</span>)+<span class="string">' '</span>+[hour,min].join(<span class="string">':'</span>);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> output;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+        
+        <br>
+        <div id="comment-container">
+        </div>
+        <div id="disqus_thread"></div>
+
+        <div id="lv-container">
+        </div>
+
+    </div>
+</div>
+
+    </div>
+</div>
+
+
+<footer class="footer">
+    <ul class="list-inline text-center">
+        
+        
+
+        
+        <li>
+            <a target="_blank" href="http://weibo.com/nooldey">
+                            <span class="fa-stack fa-lg">
+                                  <i class="iconfont icon-weibo"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+        
+        <li>
+            <a target="_blank" href="https://github.com/nooldey">
+                            <span class="fa-stack fa-lg">
+                                <i class="iconfont icon-github"></i>
+                            </span>
+            </a>
+        </li>
+        
+
+        
+
+    </ul>
+    
+    <p>
+        <span>/</span>
+        
+        <span><a href="https://www.yuque.com/nooldey/gists">Yuque</a></span>
+        <span>/</span>
+        
+        <span><a href="#">It helps SEO</a></span>
+        <span>/</span>
+        
+    </p>
+    
+    <p>
+        <span id="busuanzi_container_site_pv">
+            <span id="busuanzi_value_site_pv"></span>PV
+        </span>
+        <span id="busuanzi_container_site_uv">
+            <span id="busuanzi_value_site_uv"></span>UV
+        </span>
+        Created By <a href="https://hexo.io/">Hexo</a>  Theme <a href="https://github.com/aircloud/hexo-theme-aircloud">AirCloud</a></p>
+</footer>
+
+
+
+
+</body>
+
+<script>
+    // We expose some of the variables needed by the front end
+    window.hexo_search_path = "search.json"
+    window.hexo_root = "/yuque-post/"
+    window.isPost = true
+</script>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script src="/yuque-post/js/index.js"></script>
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+    <script>
+        /**
+         *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+         *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+        */
+        if( '' || '')
+        var disqus_config = function () {
+            this.page.url = '';  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = ''; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+
+        (function() { // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            s.src = 'https://airclouds-blog.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+
+
+
+</html>
