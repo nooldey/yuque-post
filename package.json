@@ -21,6 +21,7 @@
     "adapter": "hexo",
     "baseUrl": "https://www.yuque.com/api/v2",
     "concurrency": 5,
+    "onlyPublished": true,
     "login": "nooldey",
     "mdNameFormat": "slug",
     "postPath": "source/_posts/gists",
